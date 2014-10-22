@@ -1,0 +1,86 @@
+
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand sel" href="/">ALL ATHLETES</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle {% if sport %}sel{% endif %}" data-toggle="dropdown">
+            {% if sport %}{{ sport.name.upper }}{% else %}SPORT {% endif %}<span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu inverse-dropdown" role="menu">
+            {% for sport in sports %}
+              <li><a href="{% url 'sport_list' sport.id %}">{{ sport }}</a></li>
+            {% endfor %}
+            <li class="divider"></li>
+            <li><a href="#" data-toggle="modal" data-target="#sport_create">Add Sport</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle {% if league %}sel{% endif %}" data-toggle="dropdown">
+            {% if league %}{{ league.name.upper }}{% else %}LEAGUE {% endif %}
+            {% if sport %}<span class="caret"></span>{% endif %}
+          </a>
+          {% if sport %}
+            <ul class="dropdown-menu inverse-dropdown" role="menu">
+              {% for league in leagues %}
+                <li><a href="{% url 'league_list' league.id %}">{{ league }}</a></li>
+              {% endfor %}
+              <li class="divider"></li>
+              <li><a href="#" data-toggle="modal" data-target="#league_create">Add League</a></li>
+            </ul>
+          {% endif %}
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle {% if division %}sel{% endif %}" data-toggle="dropdown">
+            {% if division %}{{ division.name.upper }}{% else %}DIVISION {% endif %}
+            {% if league %}<span class="caret"></span>{% endif %}
+          </a>
+          {% if league %}
+            <ul class="dropdown-menu inverse-dropdown" role="menu">
+              {% for division in divisions %}
+                <li><a href="{% url 'division_list' division.id %}">{{ division }}</a></li>
+              {% endfor %}
+              <li class="divider"></li>
+              <li><a href="#" data-toggle="modal" data-target="#division_create">Add Division</a></li>
+            </ul>
+          {% endif %}
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle {% if team %}sel{% endif %}" data-toggle="dropdown">
+            {% if team %}{{ team.name.upper }}{% else %}TEAM {% endif %}
+            {% if division %}<span class="caret"></span>{% endif %}
+          </a>
+          {% if division %}
+            <ul class="dropdown-menu inverse-dropdown" role="menu">
+              {% if division %}
+                {% for team in teams %}
+                  <li><a href="{% url 'team_list' team.id %}">{{ team }}</a></li>
+                {% endfor %}
+              {% endif %}
+              <li class="divider"></li>
+              <li><a href="#" data-toggle="modal" data-target="#team_create">Add Team</a></li>
+            </ul>
+          {% endif %}
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+      <li>
+      <input id="filter" type="text" class="navbar-form form-control" size="30" placeholder="Search">
+      </li>
+        <li><a href="#" data-toggle="modal" data-target="#athlete_create">+</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

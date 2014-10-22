@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	{% include "athletes/_nav.html" %}
+	
+	{% if athletes.count > 0 %}
+		<table class="table_athletes">
+			<tr>
+				<th>Number</th>
+				<th>Name</th>
+				<th>Position</th>
+				<th>Sport</th>
+				<th>League</th>
+				<th>Division</th>
+				<th>Team</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+			<tbody class="searchable">
+		{% for athlete in athletes %}
+			<tr>
+				<td>{{ athlete.number }}</td>
+				<td>{{ athlete }}</td>
+				<td>{{ athlete.position }}</td>
+				<td>{{ athlete.team.division.league.sport }}</td>
+				<td>{{ athlete.team.division.league }}</td>
+				<td>{{ athlete.team.division }}</td>
+				<td>{{ athlete.team }}</td>
+				<td><a class="link" href="#" data-toggle="modal" data-target="#athlete_edit_{{ athlete.id }}">x</a></td>
+				<td><a class="link" href="#" data-toggle="modal" data-target="#athlete_delete_{{ athlete.id }}">x</a></td>
+			</tr>
+		{% endfor %}
+			</tbody>
+	{% else %}
+		<div class="filler">
+			No athletes available.
+		</div>
+	{% endif %}
+
+	</table>
+
+{% include "athletes/_modals.html" %}
+
+{% endblock content %}
