@@ -72,11 +72,11 @@ DATABASES = {
      'PORT': '5432',
     }
 }
-# DATABASES['default'] =  dj_database_url.config()
 
 if not os.environ.has_key('DATABASE_URL'):
     os.environ['DATABASE_URL'] = 'postgres://stellajkimm:password@localhost/thuziodb'
 
+DATABASES['default'] =  dj_database_url.config()
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
